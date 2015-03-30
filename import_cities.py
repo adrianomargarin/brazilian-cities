@@ -35,23 +35,29 @@ STATE_TRANSLATE = {
 
 def main():
 
-    lista = []
-    arquivo = open_workbook("database_ibge_2013.xls")
-    sheet = arquivo.sheet_by_name('dtb_2013')
+    aux_list = []
+    file = open_workbook("database_ibge_2013.xls")
+    sheet = file.sheet_by_name('dtb_2013')
 
+    add_number = 0
     for nrow in range(1, sheet.nrows):
-        data = {
-            "state_acronym": STATE_TRANSLATE[sheet.col_values(0)[nrow]],
-            "state_name": sheet.col_values(1)[nrow],
-            "state_code": sheet.col_values(0)[nrow],
-            "city_code": sheet.col_values(0)[nrow] + sheet.col_values(6)[nrow],
-            "city_name": sheet.col_values(7)[nrow],
-        }
-        lista.append(data)
+        data = {}
+        data["state_acronym"] = STATE_TRANSLATE[sheet.col_values(0)[nrow]]
+        data["state_name"] = unicode(sheet.col_values(1)[nrow])
+        data["state_code"] = sheet.col_values(0)[nrow]
+        data["city_code"] = sheet.col_values(0)[nrow] + sheet.col_values(6)[nrow]
+        data["city_name"] = unicode(sheet.col_values(7)[nrow])
 
-    arquivo_json = open('cities.json', 'wr')
-    arquivo_json.write(json.dumps(lista))
-    arquivo_json.close()
+        if data not in aux_list:
+            add_number += 1
+            aux_list.append(data)
+            print u"%s - Cidade %s adicionada com sucesso!" % (add_number, data["city_name"])
+
+    print u"%s cidades adicionadas!" % add_number
+
+    json_file = open('cities.json', 'wr')
+    json_file.write(json.dumps(aux_list))
+    json_file.close()
 
 if __name__ == "__main__":
     main()
