@@ -7,16 +7,17 @@ Last Update
 
 30/03/2015
 
-Usage
-=====
-
-Create ENV and install requirements.txt
+Create ENV and Install requirements
+===================================
 
 ```shell
 virtualenv env
 source env/bin/activate
 pip install -r requirements.txt
 ```
+
+Usage
+=====
 
 ```python
 python import_cities.py
