@@ -42,9 +42,7 @@ def main():
     add_number = 0
     for nrow in range(1, sheet.nrows):
         data = {}
-        data["state_acronym"] = STATE_TRANSLATE[sheet.col_values(0)[nrow]]
-        data["state_name"] = unicode(sheet.col_values(1)[nrow])
-        data["state_code"] = sheet.col_values(0)[nrow]
+        data["state"] = STATE_TRANSLATE[sheet.col_values(0)[nrow]]
         data["city_code"] = sheet.col_values(0)[nrow] + sheet.col_values(6)[nrow]
         data["city_name"] = unicode(sheet.col_values(7)[nrow])
 
